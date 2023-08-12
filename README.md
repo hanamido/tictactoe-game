@@ -22,7 +22,6 @@ Players then take turns making moves on the board, and the win or tie state of t
 
 ### Features to be Implemented in the Future
 
-* Allowing the user to replay the game
 * GUI
 * Data/type validation of names and moves
 * Allowing users to pick who is player1 and player2
