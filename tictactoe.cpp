@@ -8,7 +8,6 @@
 // Global variables
 // space holds the game board
 char space[3][3] = {{'1', '2', '3'}, {'4', '5', '6'}, {'7', '8', '9'}}; 
-char resetSpace[3][3] = {{'1', '2', '3'}, {'4', '5', '6'}, {'7', '8', '9'}}; 
 std::string player1; 
 std::string player2; 
 char player1Symbol = 'X';
@@ -224,6 +223,19 @@ bool checkTieMove(int row, int column) {
     return false;
 }
 
+// Function to reset the space variable to its original value
+void resetSpaceVariable() {
+    int c = 0;
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+            int newValue = ++c;
+            char newCh = '0' + newValue;
+            space[i][j] = newCh;
+        }
+    }
+    createGameBoard();
+}
+
 int main()
 {
     char localSpace[3][3] = {{'1', '2', '3'}, {'4', '5', '6'}, {'7', '8', '9'}}; 
@@ -245,8 +257,8 @@ int main()
     determinePlayerTurns(playerName1, playerName2);
 
     // continue looping between players while we don't have a tie at the end
-playerMoves:
     while (1) {
+    playerMoves:
         std::cout << player1 << ", please pick the row to move to: ";
         std::cin >> row;
         std::cout << player1 << '\n';
@@ -321,7 +333,13 @@ playerMoves:
         }
     }
 
-    // TODO: Ask a player if they would like to play again
+    // Ask a player if they would like to play again
+    std::cout << "Would you like to play again? Enter 'y' for yes, 'n' for no. ";
+    std::cin >> replayChoice;
+    if (replayChoice == 'y') {
+        resetSpaceVariable();
+        goto playerMoves;
+    }
 
     exit: 
         std::cout << "Thanks for playing!\n";
